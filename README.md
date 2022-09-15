@@ -87,3 +87,7 @@ Substituindo "id" pelo id de um usuário, o endpoint pode alterar informações 
 ```
 ##### /users/{id} DELETE
 Substituindo "id" pelo id de um usuário, o endpoint apaga o determinado usuário da base de dados.
+
+### Banco de dados
+#### /h2
+Pelo seu navegador, através da rota http://localhost:8080/h2 você pode acessar o console da base de dados, onde é possivel realizar consultas SQL e vizualizar o **authorization_status** dos usuários com a SD Conecta.
