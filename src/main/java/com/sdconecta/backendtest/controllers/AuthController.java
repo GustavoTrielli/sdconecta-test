@@ -3,7 +3,6 @@ package com.sdconecta.backendtest.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,6 @@ public class AuthController {
     @PostMapping("/login")
     ResponseEntity<Object> login(@RequestBody @Valid LoginDto loginDto) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(authService.authenticate(loginDto));
+        return authService.authenticate(loginDto);
     }
 }
