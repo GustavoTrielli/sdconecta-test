@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class UserService {
     @Autowired
     CrmRepositoy crmRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public UserModel save(UserModel userModel) {
         if (userModel.getCrms() != null) {
@@ -31,6 +35,7 @@ public class UserService {
                 return crm;
             }).collect(Collectors.toList()));
         }
+        userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
 
         return userRepository.save(userModel);
     }

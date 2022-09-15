@@ -1,6 +1,7 @@
 package com.sdconecta.backendtest.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -14,6 +15,8 @@ import com.sdconecta.backendtest.models.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Integer>, JpaSpecificationExecutor<UserModel>{
 
     boolean existsByEmail(String email);
+
+    Optional<UserModel> findByEmail(String email);
 
     @Query(value="SELECT * FROM TB_USER u WHERE EXISTS (SELECT c.user_id from TB_CRM c WHERE u.id = c.user_id AND c.specialty ILIKE %?1%)", nativeQuery = true)
     List<UserModel> findBySpecialty(String specialty);

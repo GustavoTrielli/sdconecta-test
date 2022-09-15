@@ -1,8 +1,4 @@
 package com.sdconecta.backendtest.models;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,16 +35,10 @@ public class UserModel {
 	private String surname;
 	@Column(name = "mobile_phone", length = 255)
 	private String mobilePhone;
+	@Column(name = "admin", columnDefinition = "boolean default false")
+	private boolean admin;
+	@Column(name = "authentication_status", length = 255)
+	private String authenticationStatus;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CrmModel> crms;
-
-	public void setPassword(String password) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-			this.password = Base64.getEncoder().encodeToString(hash);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-	}
 }
